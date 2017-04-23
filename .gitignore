@@ -1,0 +1,5 @@
+.pyc
+environment/
+__pycache__/
+.DS_Store
+media/*
