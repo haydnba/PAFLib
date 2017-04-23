@@ -1,0 +1,23 @@
+{% extends parent_template|default:"catalogue/catalogue_base.html" %}
+
+{% block title %}
+{{ block.super }} - Author List
+{% endblock %}
+
+{% block content %}
+
+  <h2>Author List</h2>
+
+  <ul>
+    {% for author in author_list %}
+      <li><a href="">
+        {{ tag.last_name|title }},
+        {{ tag.first_name|title }}
+        {{ tag.birth_date|date:"SHORT_DATE_FORMAT" }}
+      </a></li>
+    {% empty %}
+      <li>No Authors exist.</li>
+    {% endfor %}
+  </ul>
+
+{% endblock %}

@@ -10,9 +10,9 @@ class Post(models.Model):
         help_text='A unique label for URL config.')
     text = models.TextField()
     pub_date = models.DateField('date published', auto_now_add=True)
-    tags = models.ManyToManyField(Tag, related_name='blog_posts')
-    authors = models.ManyToManyField(Author, related_name='blog_posts')
-    books = models.ManyToManyField(Book, related_name='blog_posts')
+    tags = models.ManyToManyField(Tag, related_name='notices')
+    authors = models.ManyToManyField(Author, related_name='notices')
+    books = models.ManyToManyField(Book, related_name='notices')
 
     def __str__(self):
         return "{} on {}".format(
@@ -21,5 +21,6 @@ class Post(models.Model):
         )
 
     class Meta:
+        verbose_name = 'notices'
         ordering = ['-pub_date', 'title']
         get_latest_by = 'pub_date'

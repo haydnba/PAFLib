@@ -8,7 +8,7 @@ class Tag(models.Model):
         help_text='A unique label for URL config.')
 
     def __str__(self):
-        return self.name
+        return self.name.title()
 
     class Meta:
         ordering = ['name']
@@ -25,8 +25,8 @@ class Author(models.Model):
 
     def __str__(self):
         return "{} {} ({})".format(
-            self.first_name,
-            self.last_name,
+            self.first_name.title(),
+            self.last_name.title(),
             self.birth_date
         )
 

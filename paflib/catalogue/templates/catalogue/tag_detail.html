@@ -1,0 +1,42 @@
+{% extends parent_template|default:"catalogue/catalogue_base.html" %}
+
+{% block title %}
+{{ block.super }} - Tag Detail
+{% endblock %}
+
+{% block content %}
+
+  <h2>{{ Tag.name|title }}</h2>
+
+  {% if tag.books.all %}
+    <sections>
+      <h3>Books</h3>
+        <p>
+          Tag is associated with
+          {{ tag.books.count }}
+          book{{ tag.books.count|pluralize }}.
+        <ul>
+          {% for book in tag.books.all %}
+            <li><a href="">
+              {{ book.name }}
+            </a></li>
+          {% endfor %}
+        </ul>
+    </section>
+  {% endif %}
+    {% if tag.notices.all %}
+        <h3>Notices</h3>
+          <ul>
+            {% for post in tag.notices.all %}
+              <li><a href="">
+                {{ post.title|title }}
+              </a></li>
+            {% endfor %}
+          </ul>
+      </section>
+    {% endif %}
+    {% if not tag.books.all and not tag.notices.all %}
+      <p>This tag is not associated to any content.</p>
+    {% endif %}
+
+{% endblock %}

@@ -1,0 +1,67 @@
+{% extends parent_template|default:"blog/blog_base.html" %}
+
+{% block title %}
+{{ block.super }} - Post Detail
+{% endblock %}
+
+{% block content %}
+
+  <article>
+
+    <header>
+      <h2>{{ post.title|title }}</h2>
+      <p>
+        Notice written on:
+        <time datetime="{{ post.pub_date|date:"Y-m-d" }}">
+          {{ post.pub_date|date:"l, F j, Y" }}
+        </time>
+      </p>
+    </header>
+
+    {{ post.text|linebreaks }}
+
+    {% if post.authors.all or post.books.all or post.tags.all %}
+      <footer>
+
+        {% if post.authors.all %}
+          <section>
+            <ul>
+              {% for author in post.authors.all %}
+                <li><a href="">
+                  {{ author.first_name }} {{ author.last_name }}
+                </a></li>
+              {% endfor %}
+            </ul>
+          </section>
+        {% endif %}
+
+        {% if post.books.all %}
+          <section>
+            <ul>
+              {% for book in post.books.all %}
+                <li><a href="">
+                  {{ book.title }}
+                </a></li>
+              {% endfor %}
+            </ul>
+          </section>
+        {% endif %}
+
+        {% if post.tags.all %}
+          <section>
+            <ul>
+              {% for tag in post.tags.all %}
+                <li><a href="">
+                  {{ tag.name|title }}
+                </a></li>
+              {% endfor %}
+            </ul>
+          </section>
+        {% endif %}
+
+      </footer>
+    {% endif %}
+
+  </article>
+
+{% endblock %}

@@ -1,0 +1,56 @@
+{% extends parent_template|default:"catalogue/catalogue_base.html" %}
+
+{% block title %}
+{{ block.super }} - Author Detail
+{% endblock %}
+
+{% block content %}
+
+  <article>
+
+    <h2>{{ author.last_name|title }}, {{ author.first_name|title}}</h2>
+
+    <dl>
+      <dt>First Name:</dt>
+        <dd>{{ author.first_name|title }}</dd>
+      <dt>Last Name:</dt>
+        <dd>{{ author.last_name|title }}</dd>
+      <dt>Date of Birth:</dt>
+        <dd>{{ author.birth_date|date:"F jS, Y" }}</dd>
+      <dt>Book{{ author.books.count|pluralize }}:</dt>
+        {% for book in author.books.all %}
+        <dd><a href="">
+          {{ book.title }}
+        </a></dd>
+        {% endfor %}
+    </dl>
+
+    {% if author.books.tags.all %}
+      <section>
+        <h3>Associated Tags</h3>
+        <ul>
+          {% for tag in author.books.tags.all %}
+            <li><a href="">
+              {{ tag|title }}
+            </a></li>
+          {% endfor %}
+        </ul>
+      </section>
+    {% endif %}
+
+    {% if author.notices.all %}
+      <section>
+        <h3>Notices</h3>
+        <ul>
+          {% for post in author.notices.all %}
+            <li><a href="">
+              {{ post.slug }}
+            </a></li>
+          {% endfor %}
+        </ul>
+      </section>
+    {% endif %}
+
+  </article>
+
+{% endblock %}
