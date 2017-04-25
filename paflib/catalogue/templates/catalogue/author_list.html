@@ -11,9 +11,9 @@
   <ul>
     {% for author in author_list %}
       <li><a href="">
-        {{ tag.last_name|title }},
-        {{ tag.first_name|title }}
-        {{ tag.birth_date|date:"SHORT_DATE_FORMAT" }}
+        {{ author.last_name|title }}
+        {{ author.first_name|title }}
+        {{ author.birth_date|date:"SHORT_DATE_FORMAT" }}
       </a></li>
     {% empty %}
       <li>No Authors exist.</li>
