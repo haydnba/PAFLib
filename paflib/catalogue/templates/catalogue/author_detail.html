@@ -19,7 +19,7 @@
         <dd>{{ author.birth_date|date:"F jS, Y" }}</dd>
       <dt>Book{{ author.books.count|pluralize }}:</dt>
         {% for book in author.books.all %}
-        <dd><a href="">
+        <dd><a href="{{ book.get_absolute_url }}">
           {{ book.title }}
         </a></dd>
         {% endfor %}
@@ -30,7 +30,7 @@
         <h3>Associated Tags</h3>
         <ul>
           {% for tag in author.books.tags.all %}
-            <li><a href="">
+            <li><a href="{{ author.get_absolute_url }}">
               {{ tag|title }}
             </a></li>
           {% endfor %}
@@ -43,7 +43,7 @@
         <h3>Notices</h3>
         <ul>
           {% for post in author.notices.all %}
-            <li><a href="">
+            <li><a href="{{ post.get_absolute_url }}">
               {{ post.slug }}
             </a></li>
           {% endfor %}

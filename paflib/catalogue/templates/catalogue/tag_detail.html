@@ -6,37 +6,61 @@
 
 {% block content %}
 
-  <h2>{{ Tag.name|title }}</h2>
+  <article>
 
-  {% if tag.books.all %}
-    <sections>
-      <h3>Books</h3>
-        <p>
-          Tag is associated with
-          {{ tag.books.count }}
-          book{{ tag.books.count|pluralize }}.
-        <ul>
-          {% for book in tag.books.all %}
-            <li><a href="">
-              {{ book.name }}
-            </a></li>
-          {% endfor %}
-        </ul>
-    </section>
-  {% endif %}
+    <h2>{{ Tag.name|title }}</h2>
+
+    {% if tag.books.all %}
+      <sections>
+        <h3>Books</h3>
+          <p>
+            Tag is associated with
+            {{ tag.books.count }}
+            book{{ tag.books.count|pluralize }}.
+          <ul>
+            {% for book in tag.books.all %}
+              <li><a href="{{ book.get_absolute_url }}">
+                {{ book.name }}
+              </a></li>
+            {% endfor %}
+          </ul>
+      </section>
+    {% endif %}
+
+    {% if tag.authors.all %}
+      <sections>
+        <h3>Authors</h3>
+          <p>
+            Tag is associated with
+            {{ tag.authors.count }}
+            author{{ tag.authors.count|pluralize }}.
+          <ul>
+            {% for author in tag.authors.all %}
+              <li><a href="{{ author.get_absolute_url }}">
+                {{ author.name }}
+              </a></li>
+            {% endfor %}
+          </ul>
+      </section>
+    {% endif %}
+
     {% if tag.notices.all %}
+      <section>
         <h3>Notices</h3>
           <ul>
             {% for post in tag.notices.all %}
-              <li><a href="">
+              <li><a href="{{ tag.get_absolute_url }}">
                 {{ post.title|title }}
               </a></li>
             {% endfor %}
           </ul>
       </section>
     {% endif %}
-    {% if not tag.books.all and not tag.notices.all %}
+
+    {% if not tag.books.all and not tag.authors.all and not tag.notices.all %}
       <p>This tag is not associated to any content.</p>
     {% endif %}
+
+  </article>
 
 {% endblock %}

@@ -1,0 +1,21 @@
+{% extends parent_template|default:"catalogue/catalogue_base.html" %}
+
+{% block title %}
+{{ block.super }} - Update Author
+{% endblock %}
+
+{% block content %}
+
+  <div>
+    <div>
+      <form action="{{ author.get_update_url }}">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">
+          Update Author
+        </button>
+      </form>
+    </div>
+  </div>
+
+{% endblock %}

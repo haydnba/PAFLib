@@ -27,7 +27,7 @@
           <section>
             <ul>
               {% for author in post.authors.all %}
-                <li><a href="">
+                <li><a href="{{ author.get_absolute_url }}">
                   {{ author.first_name }} {{ author.last_name }}
                 </a></li>
               {% endfor %}
@@ -39,7 +39,7 @@
           <section>
             <ul>
               {% for book in post.books.all %}
-                <li><a href="">
+                <li><a href="{{ book.get_absolute_url }}">
                   {{ book.title }}
                 </a></li>
               {% endfor %}
@@ -51,7 +51,7 @@
           <section>
             <ul>
               {% for tag in post.tags.all %}
-                <li><a href="">
+                <li><a href="{{ tag.get_absolute_url }}">
                   {{ tag.name|title }}
                 </a></li>
               {% endfor %}

@@ -1,7 +1,8 @@
 from django.views.generic import View
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404, redirect, render
 
 from .models import Post
+from .forms import PostForm
 
 
 class PostList(View):
@@ -11,9 +12,7 @@ class PostList(View):
         return render(
             request,
             self.template_name,
-            {'post_list': Post.objects.all(),
-            # 'parent_template': parent_template
-            }
+            {'post_list': Post.objects.all()}
         )
 
 
@@ -30,7 +29,29 @@ class PostDetail(View):
         return render(
             request,
             self.template_name,
-            {'post': post,
-            # 'parent_template': parent_template
-            }
+            {'post': post}
         )
+
+
+class PostCreate(View):
+    form_class = PostForm
+    template_name = 'blog/post_form.html'
+
+    def get(self, request):
+        return render(
+            request,
+            self.template_name,
+            {'form': self.form_class()}
+        )
+
+    def post(self,request):
+        bound_form = self.form_class(request.POST)
+        if bound_form.is_valid():
+            new_tag = bound_form.save()
+            return redirect(new_tag)
+        else:
+            return render(
+                request,
+                self.template_name,
+                {'form': bound_form}
+            )

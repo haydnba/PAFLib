@@ -1,0 +1,21 @@
+{% extends parent_template|default:"catalogue/catalogue_base.html" %}
+
+{% block title %}
+{{ block.super }} - Create Author
+{% endblock %}
+
+{% block content %}
+
+  <div>
+    <div>
+      <form action="{% url 'catalogue_author_create' %}" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">
+          Create Author
+        </button>
+      </form>
+    </div>
+  </div>
+
+{% endblock %}

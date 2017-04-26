@@ -1,0 +1,20 @@
+{% extends parent_template|default:"catalogue/catalogue_base.html" %}
+
+{% block title %}
+{{ block.super }} - Delete Author
+{% endblock %}
+
+{% block content %}
+
+  <div>
+    <div>
+      <form action="{{ author.get_delete_url }}" method="post">
+        {% csrf_token %}
+        <p>Are you sure that you want to delete the author: {{ author.name }}?</p>
+        <a href="{{ author.get_absolute_url }}">Cancel</a>
+        <button type="submit">Delete Author</button>
+      </form>
+    </div>
+  </div>
+
+{% endblock %}

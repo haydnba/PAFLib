@@ -1,4 +1,5 @@
 from django.db import models
+from django.core.urlresolvers import reverse
 
 class Tag(models.Model):
     name = models.CharField(max_length=31, unique=True)
@@ -7,11 +8,17 @@ class Tag(models.Model):
         unique=True,
         help_text='A unique label for URL config.')
 
+    class Meta:
+        ordering = ['name']
+
     def __str__(self):
         return self.name.title()
 
-    class Meta:
-        ordering = ['name']
+    def get_absolute_url(self):
+        return reverse(
+            'catalogue_tag_detail',
+            kwargs={'slug': self.slug}
+        )
 
 
 class Author(models.Model):
@@ -23,6 +30,9 @@ class Author(models.Model):
         unique=True,
         help_text='A unique label for URL config.')
 
+    class Meta:
+        ordering = ['last_name']
+
     def __str__(self):
         return "{} {} ({})".format(
             self.first_name.title(),
@@ -30,8 +40,11 @@ class Author(models.Model):
             self.birth_date
         )
 
-    class Meta:
-        ordering = ['last_name']
+    def get_absolute_url(self):
+        return reverse(
+            'catalogue_author_detail',
+            kwargs={'slug': self.slug}
+        )
 
 
 class Book(models.Model):
@@ -48,11 +61,17 @@ class Book(models.Model):
     location = models.CharField(max_length=1023)
     status = models.CharField(max_length=63)
 
+    class Meta:
+        ordering = ['title']
+
     def __str__(self):
         return "{} at location: {}".format(
             self.title,
             self.location
         )
 
-    class Meta:
-        ordering = ['title']
+    def get_absolute_url(self):
+        return reverse(
+            'catalogue_book_detail',
+            kwargs={'slug': self.slug}
+        )
